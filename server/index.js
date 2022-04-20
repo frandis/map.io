@@ -1,25 +1,31 @@
 const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
+const authRoutes = require('./routes/authRoutes');
+const projectsRouter = require('./routes/projectRoutes');
+
+const MONGO_URI = require('./config');
 const app = express();
+
 const port = process.env.PORT || 3000;
 
-const dummyResponse = {
-  foo: 'bar',
-  bar: 'foo',
-};
+mongoose.connect(MONGO_URI);
 
 app.use(express.json());
-app.use(urlencoded({ extended: true }));
+// app.use(urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, '../build')));
-app.get('*', function (req, res) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../build/') });
-});
 
-app.get('/api', (req, res) => {
-  res.status(200).send(dummyResponse);
-});
+authRoutes(app);
+
+app.use('/api/projects', projectsRouter);
+// app.get('/hi', (req, res) => {
+//   res.status(200).send(dummyResponse);
+// });
 
 // app.get('/signup', (req, res) => {
 //   res.status(200).json();
@@ -28,6 +34,9 @@ app.get('/api', (req, res) => {
 //   res.status(200).send('Hello from the server');
 // });
 
+app.get('*', function (req, res) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../build/') });
+});
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'

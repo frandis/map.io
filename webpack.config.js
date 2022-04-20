@@ -4,12 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
-    main: path.resolve(__dirname, 'client/index.js'),
+    bundle: path.resolve(__dirname, 'client/index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[bundle][contentHash].js',
     publicPath: '/',
+    clean: true,
   },
   devServer: {
     static: {
@@ -18,8 +19,14 @@ module.exports = {
     compress: true,
     port: 8080,
     hot: true,
-
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        secure: false,
+        changeOrigin: true,
+      },
+    },
   },
   module: {
     rules: [
@@ -30,6 +37,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-runtime'],
           },
         },
       },

@@ -1,20 +1,34 @@
-import { UPDATE_FIRSTNAME, UPDATE_LASTNAME } from '../actions/actionTypes';
+import {
+  UPDATE_FIRSTNAME,
+  UPDATE_LASTNAME,
+  UPDATE_USERNAME,
+  UPDATE_PASSWORD,
+} from '../actions/actionTypes';
 const initialState = {
   firstName: '',
   lastName: '',
-  email: '',
+  username: '',
   password: '',
 };
 
 function signupReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_FIRSTNAME: {
-      const newFirstName = (state.firstName += action.payload);
+      const newFirstName = action.payload;
       return { ...state, firstName: newFirstName };
     }
     case UPDATE_LASTNAME: {
-      const newLastName = (state.lastName += action.payload);
+      const newLastName = action.payload;
       return { ...state, lastName: newLastName };
+    }
+    case UPDATE_USERNAME: {
+      const newUsername = action.payload;
+      return { ...state, username: newUsername };
+    }
+
+    case UPDATE_PASSWORD: {
+      const newPassword = action.payload;
+      return { ...state, password: newPassword };
     }
 
     default:
