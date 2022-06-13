@@ -39,7 +39,7 @@ map.io is a simple journal app for maintaining short journals about one's projec
   git clone https://github.com/frandis/map.io.git
 ```
 2. From the project root directory, run `npm install` to install dependencies
-3. Create `index.js` in `server/config` and add teh following
+3. Create `index.js` in `server/config` and add the following
 ``` javascript
 const MONGO_URI = 'YOUR MONGODB URI';
 
