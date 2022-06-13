@@ -6,7 +6,7 @@ map.io is a simple journal app for maintaining short journals about one's projec
 ![landing.png](https://i.postimg.cc/nLPdYCd7/landing.png)
 
 ## About Page
-[![addproject.png](https://i.postimg.cc/fTS87xpv/addproject.png)](https://postimg.cc/qz0c4Ckt)
+![about.png](https://i.postimg.cc/Dyhtzp8X/about.png)
 
 ## Login Page
 ![login.png](https://i.postimg.cc/5NBRd90d/login.png)
